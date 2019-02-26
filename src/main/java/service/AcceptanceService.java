@@ -27,6 +27,7 @@ public class AcceptanceService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         AcceptanceEntity acceptance = session.get(AcceptanceEntity.class, acceptanceId);
+        acceptance.getAcceptanceId();
         session.save(acceptance);
         session.getTransaction().commit();
         session.close();
