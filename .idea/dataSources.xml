@@ -17,5 +17,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/bsbd_homework</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="ccp" uuid="bef8ee0f-5b00-4843-af7a-944f7024bdde">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ccp</jdbc-url>
+    </data-source>
   </component>
 </project>
