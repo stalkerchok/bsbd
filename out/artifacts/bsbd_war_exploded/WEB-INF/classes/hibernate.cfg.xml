@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/bsbd_homework</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.datasource">java:comp/env/jdbc/bsbd</property>
+    <mapping class="ru.mirea.bsbd.entity.AcceptanceEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.ActEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.ClientEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.DocumentEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.EmployeeEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.InventoryBookEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.OkeiEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.OkpoEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.Order1Entity"/>
+      <mapping class="ru.mirea.bsbd.entity.OrganizationEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.PowerOfAttorneyEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.ProductEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.PurchaseEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.StoreEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.VehicleEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.WrittenOffEntity"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
