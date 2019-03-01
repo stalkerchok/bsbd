@@ -2,6 +2,7 @@ package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "act", schema = "public", catalog = "bsbd_homework")
@@ -9,9 +10,9 @@ public class ActEntity {
     private int actId;
     private String name;
     private Date date;
-    private int clientId;
-    private int employeeId;
-    private int acceptanceId;
+    private int employee_id;
+    private EmployeeEntity employeeEntity;
+
 
     @Id
     @Column(name = "act_id", nullable = false)
@@ -24,7 +25,7 @@ public class ActEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = true, length = 100)
     public String getName() {
         return name;
     }
@@ -34,7 +35,7 @@ public class ActEntity {
     }
 
     @Basic
-    @Column(name = "date", nullable = false)
+    @Column(name = "date", nullable = true)
     public Date getDate() {
         return date;
     }
@@ -44,60 +45,48 @@ public class ActEntity {
     }
 
     @Basic
-    @Column(name = "client_id", nullable = false)
-    public int getClientId() {
-        return clientId;
+    @Column(name = "employee_id", nullable = false, insertable = false, updatable = false)
+    public int getEmployee_id() {
+        return employee_id;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id", insertable = false, updatable = false)
+    public EmployeeEntity getEmployeeEntity(){
+        return this.employeeEntity;
     }
 
-    @Basic
-    @Column(name = "employee_id", nullable = false)
-    public int getEmployeeId() {
-        return employeeId;
+    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
+        this.employeeEntity = employeeEntity;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    /*@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", nullable = false)
+
+    public int getEmployeeEntity(){
+        return this.employeeEntity.getEmployeeId();
     }
 
-    @Basic
-    @Column(name = "acceptance_id", nullable = false)
-    public int getAcceptanceId() {
-        return acceptanceId;
+    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
+        this.employeeEntity.setEmployeeId(employeeEntity.getEmployeeId());
     }
 
-    public void setAcceptanceId(int acceptanceId) {
-        this.acceptanceId = acceptanceId;
-    }
-
+*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ActEntity actEntity = (ActEntity) o;
-
-        if (actId != actEntity.actId) return false;
-        if (clientId != actEntity.clientId) return false;
-        if (employeeId != actEntity.employeeId) return false;
-        if (acceptanceId != actEntity.acceptanceId) return false;
-        if (name != null ? !name.equals(actEntity.name) : actEntity.name != null) return false;
-        if (date != null ? !date.equals(actEntity.date) : actEntity.date != null) return false;
-
-        return true;
+        return actId == actEntity.actId &&
+                Objects.equals(name, actEntity.name) &&
+                Objects.equals(date, actEntity.date);
     }
 
     @Override
     public int hashCode() {
-        int result = actId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + clientId;
-        result = 31 * result + employeeId;
-        result = 31 * result + acceptanceId;
-        return result;
+        return Objects.hash(actId, name, date);
     }
 }

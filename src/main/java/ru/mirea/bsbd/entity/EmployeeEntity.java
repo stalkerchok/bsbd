@@ -1,6 +1,9 @@
 package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee", schema = "public", catalog = "bsbd_homework")
@@ -13,8 +16,12 @@ public class EmployeeEntity {
     private int officeNumber;
     private String position;
 
+    //link to act
+    private Set<ActEntity> actEntity = new HashSet<>();
+
+
     @Id
-    @Column(name = "employee_id", nullable = false)
+    @Column(name = "employee_id", nullable = false, insertable = false, updatable = false)
     public int getEmployeeId() {
         return employeeId;
     }
@@ -24,7 +31,7 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "surname", nullable = false, length = 100)
+    @Column(name = "surname", nullable = true, length = 100)
     public String getSurname() {
         return surname;
     }
@@ -34,7 +41,7 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = true, length = 100)
     public String getName() {
         return name;
     }
@@ -44,7 +51,7 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "patronymic", nullable = false, length = 100)
+    @Column(name = "patronymic", nullable = true, length = 100)
     public String getPatronymic() {
         return patronymic;
     }
@@ -54,7 +61,7 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "telephone_number", nullable = false)
+    @Column(name = "telephone_number", nullable = true)
     public int getTelephoneNumber() {
         return telephoneNumber;
     }
@@ -64,7 +71,7 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "office_number", nullable = false)
+    @Column(name = "office_number", nullable = true)
     public int getOfficeNumber() {
         return officeNumber;
     }
@@ -74,7 +81,7 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "position", nullable = false, length = 100)
+    @Column(name = "position", nullable = true, length = 100)
     public String getPosition() {
         return position;
     }
@@ -83,33 +90,34 @@ public class EmployeeEntity {
         this.position = position;
     }
 
+
+
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
+    public Set<ActEntity> getActEntity(){
+        return this.actEntity;
+    }
+    public void setActEntity(Set<ActEntity> actEntity) {
+        this.actEntity = actEntity;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         EmployeeEntity that = (EmployeeEntity) o;
-
-        if (employeeId != that.employeeId) return false;
-        if (telephoneNumber != that.telephoneNumber) return false;
-        if (officeNumber != that.officeNumber) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (patronymic != null ? !patronymic.equals(that.patronymic) : that.patronymic != null) return false;
-        if (position != null ? !position.equals(that.position) : that.position != null) return false;
-
-        return true;
+        return employeeId == that.employeeId &&
+                telephoneNumber == that.telephoneNumber &&
+                officeNumber == that.officeNumber &&
+                Objects.equals(surname, that.surname) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(patronymic, that.patronymic) &&
+                Objects.equals(position, that.position);
     }
 
     @Override
     public int hashCode() {
-        int result = employeeId;
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + telephoneNumber;
-        result = 31 * result + officeNumber;
-        result = 31 * result + (position != null ? position.hashCode() : 0);
-        return result;
+        return Objects.hash(employeeId, surname, name, patronymic, telephoneNumber, officeNumber, position);
     }
 }

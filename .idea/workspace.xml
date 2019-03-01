@@ -7,30 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8837382e-43be-4e17-aaf5-f1c46f6dc2a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/bsbd_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/bsbd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/09d55e7d-deba-4dc4-8401-ef4875ffd567.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/09d55e7d-deba-4dc4-8401-ef4875ffd567.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/09d55e7d-deba-4dc4-8401-ef4875ffd567/storage_v2/_src_/database/bsbd_homework.3MqsFw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/09d55e7d-deba-4dc4-8401-ef4875ffd567/storage_v2/_src_/database/bsbd_homework.3MqsFw/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/AcceptanceEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/AcceptanceEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ClientEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ClientEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/DocumentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/DocumentEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/bsbd_war_exploded.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/EmployeeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/EmployeeEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/InventoryBookEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/InventoryBookEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/OkeiEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/OkeiEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/OkpoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/OkpoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/Order1Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/Order1Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/OrganizationEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/OrganizationEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/PowerOfAttorneyEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/PowerOfAttorneyEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ProductEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ProductEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/PurchaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/PurchaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/StoreEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/StoreEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/VehicleEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/VehicleEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/WrittenOffEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/WrittenOffEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/AcceptanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/AcceptanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -74,11 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="45">
+              <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -86,19 +62,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="47" column="88" selection-start-line="47" selection-start-column="88" selection-end-line="47" selection-end-column="88" />
+            <state relative-caret-position="390">
+              <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1012#1013#0" expanded="true" />
-                <element signature="e#1046#1047#0" expanded="true" />
-                <element signature="e#1097#1098#0" expanded="true" />
-                <element signature="e#1143#1144#0" expanded="true" />
-                <element signature="e#1467#1468#0" expanded="true" />
-                <element signature="e#1509#1510#0" expanded="true" />
-                <element signature="e#1577#1578#0" expanded="true" />
-                <element signature="e#1629#1630#0" expanded="true" />
-                <element signature="e#2374#2375#0" expanded="true" />
                 <element signature="e#2428#2429#0" expanded="true" />
               </folding>
             </state>
@@ -108,13 +75,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/EmployeeEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="345">
               <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
-              <folding>
-                <element signature="e#523#534#0" expanded="true" />
-                <element signature="e#2295#2296#0" expanded="true" />
-                <element signature="e#2323#2324#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -142,8 +104,8 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/AcceptanceService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/WrittenOffEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/EmployeeEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/EmployeeEntity.java" />
       </list>
     </option>
   </component>
@@ -380,16 +342,15 @@
       <workItem from="1551342382246" duration="4447000" />
       <workItem from="1551351884717" duration="3404000" />
       <workItem from="1551437496687" duration="2823000" />
-      <workItem from="1551446312754" duration="2892000" />
+      <workItem from="1551446312754" duration="3630000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26154000" />
+    <option name="totallyTimeSpent" value="26892000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="31" width="1926" height="1123" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5863014" visible="true" weight="0.1485623" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -467,29 +428,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="72" column="17" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="45">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="47" column="88" selection-start-line="47" selection-start-column="88" selection-end-line="47" selection-end-column="88" />
+        <state relative-caret-position="390">
+          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1012#1013#0" expanded="true" />
-            <element signature="e#1046#1047#0" expanded="true" />
-            <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#1143#1144#0" expanded="true" />
-            <element signature="e#1467#1468#0" expanded="true" />
-            <element signature="e#1509#1510#0" expanded="true" />
-            <element signature="e#1577#1578#0" expanded="true" />
-            <element signature="e#1629#1630#0" expanded="true" />
-            <element signature="e#2374#2375#0" expanded="true" />
             <element signature="e#2428#2429#0" expanded="true" />
           </folding>
         </state>
@@ -497,13 +446,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/EmployeeEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="345">
           <caret line="23" column="89" selection-start-line="23" selection-start-column="89" selection-end-line="23" selection-end-column="89" />
-          <folding>
-            <element signature="e#523#534#0" expanded="true" />
-            <element signature="e#2295#2296#0" expanded="true" />
-            <element signature="e#2323#2324#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
