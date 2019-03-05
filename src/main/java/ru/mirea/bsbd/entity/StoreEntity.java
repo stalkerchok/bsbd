@@ -1,6 +1,7 @@
 package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "store", schema = "public", catalog = "bsbd_homework")
@@ -10,7 +11,6 @@ public class StoreEntity {
     private int storage;
     private int productName;
     private int amount;
-    private int purchaseId;
 
     @Id
     @Column(name = "store_id", nullable = false)
@@ -62,41 +62,20 @@ public class StoreEntity {
         this.amount = amount;
     }
 
-    @Basic
-    @Column(name = "purchase_id", nullable = false)
-    public int getPurchaseId() {
-        return purchaseId;
-    }
-
-    public void setPurchaseId(int purchaseId) {
-        this.purchaseId = purchaseId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         StoreEntity that = (StoreEntity) o;
-
-        if (storeId != that.storeId) return false;
-        if (productId != that.productId) return false;
-        if (storage != that.storage) return false;
-        if (productName != that.productName) return false;
-        if (amount != that.amount) return false;
-        if (purchaseId != that.purchaseId) return false;
-
-        return true;
+        return storeId == that.storeId &&
+                productId == that.productId &&
+                storage == that.storage &&
+                productName == that.productName &&
+                amount == that.amount;
     }
 
     @Override
     public int hashCode() {
-        int result = storeId;
-        result = 31 * result + productId;
-        result = 31 * result + storage;
-        result = 31 * result + productName;
-        result = 31 * result + amount;
-        result = 31 * result + purchaseId;
-        return result;
+        return Objects.hash(storeId, productId, storage, productName, amount);
     }
 }

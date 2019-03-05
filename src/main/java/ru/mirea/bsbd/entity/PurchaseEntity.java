@@ -1,6 +1,7 @@
 package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "purchase", schema = "public", catalog = "bsbd_homework")
@@ -9,7 +10,6 @@ public class PurchaseEntity {
     private int productId;
     private int orderedQuantity;
     private int productReleased;
-    private int actId;
 
     @Id
     @Column(name = "purchase_id", nullable = false)
@@ -51,39 +51,19 @@ public class PurchaseEntity {
         this.productReleased = productReleased;
     }
 
-    @Basic
-    @Column(name = "act_id", nullable = false)
-    public int getActId() {
-        return actId;
-    }
-
-    public void setActId(int actId) {
-        this.actId = actId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         PurchaseEntity that = (PurchaseEntity) o;
-
-        if (purchaseId != that.purchaseId) return false;
-        if (productId != that.productId) return false;
-        if (orderedQuantity != that.orderedQuantity) return false;
-        if (productReleased != that.productReleased) return false;
-        if (actId != that.actId) return false;
-
-        return true;
+        return purchaseId == that.purchaseId &&
+                productId == that.productId &&
+                orderedQuantity == that.orderedQuantity &&
+                productReleased == that.productReleased;
     }
 
     @Override
     public int hashCode() {
-        int result = purchaseId;
-        result = 31 * result + productId;
-        result = 31 * result + orderedQuantity;
-        result = 31 * result + productReleased;
-        result = 31 * result + actId;
-        return result;
+        return Objects.hash(purchaseId, productId, orderedQuantity, productReleased);
     }
 }

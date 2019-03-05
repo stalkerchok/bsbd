@@ -7,7 +7,7 @@
     <property name="connection.url">jdbc:postgresql://localhost:5432/bsbd_homework</property>
     <property name="connection.driver_class">org.postgresql.Driver</property>
     <property name="hibernate.connection.datasource">java:comp/env/jdbc/bsbd</property>
-    <mapping class="ru.mirea.bsbd.entity.AcceptanceEntity"/>
+      <mapping class="ru.mirea.bsbd.entity.AcceptanceEntity"/>
       <mapping class="ru.mirea.bsbd.entity.ActEntity"/>
       <mapping class="ru.mirea.bsbd.entity.ClientEntity"/>
       <mapping class="ru.mirea.bsbd.entity.DocumentEntity"/>

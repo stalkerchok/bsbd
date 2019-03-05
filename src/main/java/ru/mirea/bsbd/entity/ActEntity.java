@@ -1,5 +1,7 @@
 package ru.mirea.bsbd.entity;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -7,12 +9,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "act", schema = "public", catalog = "bsbd_homework")
 public class ActEntity {
+    @Expose
     private int actId;
+    @Expose
     private String name;
+    @Expose
     private Date date;
-    private int employee_id;
-    private EmployeeEntity employeeEntity;
 
+    private EmployeeEntity employeeEntity;
 
     @Id
     @Column(name = "act_id", nullable = false)
@@ -44,17 +48,13 @@ public class ActEntity {
         this.date = date;
     }
 
-    @Basic
-    @Column(name = "employee_id", nullable = false, insertable = false, updatable = false)
-    public int getEmployee_id() {
-        return employee_id;
-    }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
-    }
+
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id", referencedColumnName = "employee_id", insertable = false, updatable = false)
+    @JoinColumn(name = "employee_id")
+
+
     public EmployeeEntity getEmployeeEntity(){
         return this.employeeEntity;
     }
@@ -63,18 +63,8 @@ public class ActEntity {
         this.employeeEntity = employeeEntity;
     }
 
-    /*@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id", nullable = false)
 
-    public int getEmployeeEntity(){
-        return this.employeeEntity.getEmployeeId();
-    }
 
-    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
-        this.employeeEntity.setEmployeeId(employeeEntity.getEmployeeId());
-    }
-
-*/
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

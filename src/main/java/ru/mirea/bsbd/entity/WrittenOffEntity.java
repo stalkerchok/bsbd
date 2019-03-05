@@ -1,13 +1,13 @@
 package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "written_off", schema = "public", catalog = "bsbd_homework")
 public class WrittenOffEntity {
     private int idWrittenOffProduct;
     private int amountWrittenOff;
-    private int actId;
 
     @Id
     @Column(name = "id_written_off_product", nullable = false)
@@ -29,35 +29,17 @@ public class WrittenOffEntity {
         this.amountWrittenOff = amountWrittenOff;
     }
 
-    @Basic
-    @Column(name = "act_id", nullable = false)
-    public int getActId() {
-        return actId;
-    }
-
-    public void setActId(int actId) {
-        this.actId = actId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         WrittenOffEntity that = (WrittenOffEntity) o;
-
-        if (idWrittenOffProduct != that.idWrittenOffProduct) return false;
-        if (amountWrittenOff != that.amountWrittenOff) return false;
-        if (actId != that.actId) return false;
-
-        return true;
+        return idWrittenOffProduct == that.idWrittenOffProduct &&
+                amountWrittenOff == that.amountWrittenOff;
     }
 
     @Override
     public int hashCode() {
-        int result = idWrittenOffProduct;
-        result = 31 * result + amountWrittenOff;
-        result = 31 * result + actId;
-        return result;
+        return Objects.hash(idWrittenOffProduct, amountWrittenOff);
     }
 }

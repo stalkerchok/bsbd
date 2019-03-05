@@ -1,5 +1,7 @@
 package ru.mirea.bsbd.entity;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -8,20 +10,25 @@ import java.util.Set;
 @Entity
 @Table(name = "employee", schema = "public", catalog = "bsbd_homework")
 public class EmployeeEntity {
+    @Expose
     private int employeeId;
+    @Expose
     private String surname;
+    @Expose
     private String name;
+    @Expose
     private String patronymic;
-    private int telephoneNumber;
-    private int officeNumber;
+    @Expose
+    private Integer telephoneNumber;
+    @Expose
+    private Integer officeNumber;
+    @Expose
     private String position;
-
-    //link to act
-    private Set<ActEntity> actEntity = new HashSet<>();
-
+    @Expose
+    private Set<ActEntity> actEntities = new HashSet<>();
 
     @Id
-    @Column(name = "employee_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "employee_id", nullable = false)
     public int getEmployeeId() {
         return employeeId;
     }
@@ -62,21 +69,21 @@ public class EmployeeEntity {
 
     @Basic
     @Column(name = "telephone_number", nullable = true)
-    public int getTelephoneNumber() {
+    public Integer getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(Integer telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
     @Basic
     @Column(name = "office_number", nullable = true)
-    public int getOfficeNumber() {
+    public Integer getOfficeNumber() {
         return officeNumber;
     }
 
-    public void setOfficeNumber(int officeNumber) {
+    public void setOfficeNumber(Integer officeNumber) {
         this.officeNumber = officeNumber;
     }
 
@@ -91,15 +98,22 @@ public class EmployeeEntity {
     }
 
 
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
+
+    public Set<ActEntity> getActEntities() {
+        return actEntities;
+    }
+
+    public void setActEntities(Set<ActEntity> actEntities) {
+        this.actEntities = actEntities;
+    }
+
+    public void addActEntities(ActEntity actEntities) {
+        actEntities.setEmployeeEntity(this);
+        this.actEntities.add(actEntities);
+    }
 
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
-    public Set<ActEntity> getActEntity(){
-        return this.actEntity;
-    }
-    public void setActEntity(Set<ActEntity> actEntity) {
-        this.actEntity = actEntity;
-    }
 
 
     @Override
@@ -108,11 +122,11 @@ public class EmployeeEntity {
         if (o == null || getClass() != o.getClass()) return false;
         EmployeeEntity that = (EmployeeEntity) o;
         return employeeId == that.employeeId &&
-                telephoneNumber == that.telephoneNumber &&
-                officeNumber == that.officeNumber &&
                 Objects.equals(surname, that.surname) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(patronymic, that.patronymic) &&
+                Objects.equals(telephoneNumber, that.telephoneNumber) &&
+                Objects.equals(officeNumber, that.officeNumber) &&
                 Objects.equals(position, that.position);
     }
 

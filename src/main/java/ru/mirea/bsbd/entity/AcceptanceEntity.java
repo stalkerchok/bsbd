@@ -1,6 +1,7 @@
 package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "acceptance", schema = "public", catalog = "bsbd_homework")
@@ -87,29 +88,18 @@ public class AcceptanceEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AcceptanceEntity that = (AcceptanceEntity) o;
-
-        if (acceptanceId != that.acceptanceId) return false;
-        if (actId != that.actId) return false;
-        if (start != null ? !start.equals(that.start) : that.start != null) return false;
-        if (end1 != null ? !end1.equals(that.end1) : that.end1 != null) return false;
-        if (renewed != null ? !renewed.equals(that.renewed) : that.renewed != null) return false;
-        if (suspended != null ? !suspended.equals(that.suspended) : that.suspended != null) return false;
-        if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
-
-        return true;
+        return acceptanceId == that.acceptanceId &&
+                actId == that.actId &&
+                Objects.equals(start, that.start) &&
+                Objects.equals(end1, that.end1) &&
+                Objects.equals(renewed, that.renewed) &&
+                Objects.equals(suspended, that.suspended) &&
+                Objects.equals(adress, that.adress);
     }
 
     @Override
     public int hashCode() {
-        int result = acceptanceId;
-        result = 31 * result + actId;
-        result = 31 * result + (start != null ? start.hashCode() : 0);
-        result = 31 * result + (end1 != null ? end1.hashCode() : 0);
-        result = 31 * result + (renewed != null ? renewed.hashCode() : 0);
-        result = 31 * result + (suspended != null ? suspended.hashCode() : 0);
-        result = 31 * result + (adress != null ? adress.hashCode() : 0);
-        return result;
+        return Objects.hash(acceptanceId, actId, start, end1, renewed, suspended, adress);
     }
 }

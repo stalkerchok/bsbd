@@ -7,7 +7,7 @@
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
-      <user-name>andrey</user-name>
+      <user-name>anton</user-name>
       <introspection-schemas>@:@</introspection-schemas>
     </data-source>
     <data-source name="hibernate.cfg.xml/Hibernate" uuid="24a89b58-ebb2-4667-b09c-85f03f32dce7">

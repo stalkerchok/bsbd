@@ -1,6 +1,7 @@
 package ru.mirea.bsbd.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "client", schema = "public", catalog = "bsbd_homework")
@@ -12,7 +13,6 @@ public class ClientEntity {
     private int telephoneNumber;
     private String adress;
     private int okpo;
-    private int okpoId;
 
     @Id
     @Column(name = "client_id", nullable = false)
@@ -84,45 +84,22 @@ public class ClientEntity {
         this.okpo = okpo;
     }
 
-    @Basic
-    @Column(name = "okpo_id", nullable = false)
-    public int getOkpoId() {
-        return okpoId;
-    }
-
-    public void setOkpoId(int okpoId) {
-        this.okpoId = okpoId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ClientEntity that = (ClientEntity) o;
-
-        if (clientId != that.clientId) return false;
-        if (telephoneNumber != that.telephoneNumber) return false;
-        if (okpo != that.okpo) return false;
-        if (okpoId != that.okpoId) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (patronymic != null ? !patronymic.equals(that.patronymic) : that.patronymic != null) return false;
-        if (adress != null ? !adress.equals(that.adress) : that.adress != null) return false;
-
-        return true;
+        return clientId == that.clientId &&
+                telephoneNumber == that.telephoneNumber &&
+                okpo == that.okpo &&
+                Objects.equals(surname, that.surname) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(patronymic, that.patronymic) &&
+                Objects.equals(adress, that.adress);
     }
 
     @Override
     public int hashCode() {
-        int result = clientId;
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + telephoneNumber;
-        result = 31 * result + (adress != null ? adress.hashCode() : 0);
-        result = 31 * result + okpo;
-        result = 31 * result + okpoId;
-        return result;
+        return Objects.hash(clientId, surname, name, patronymic, telephoneNumber, adress, okpo);
     }
 }
