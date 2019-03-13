@@ -19,13 +19,17 @@ public class EmployeeEntity {
     @Expose
     private String patronymic;
     @Expose
-    private Integer telephoneNumber;
+    private String telephoneNumber;
     @Expose
     private Integer officeNumber;
-    @Expose
-    private String position;
+
     @Expose
     private Set<ActEntity> actEntities = new HashSet<>();
+
+    @Expose
+    private Set<InventoryBookEntity> inventoryBookEntities = new HashSet<>();
+
+
 
     @Id
     @Column(name = "employee_id", nullable = false)
@@ -68,12 +72,12 @@ public class EmployeeEntity {
     }
 
     @Basic
-    @Column(name = "telephone_number", nullable = true)
-    public Integer getTelephoneNumber() {
+    @Column(name = "telephone_number", nullable = true, length = 50)
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(Integer telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
@@ -87,17 +91,9 @@ public class EmployeeEntity {
         this.officeNumber = officeNumber;
     }
 
-    @Basic
-    @Column(name = "position", nullable = true, length = 100)
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
 
 
+    //link to acts
     @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
 
     public Set<ActEntity> getActEntities() {
@@ -108,11 +104,29 @@ public class EmployeeEntity {
         this.actEntities = actEntities;
     }
 
-    public void addActEntities(ActEntity actEntities) {
-        actEntities.setEmployeeEntity(this);
-        this.actEntities.add(actEntities);
+    public void addActEntities(ActEntity actEntity) {
+        actEntity.setEmployeeEntity(this);
+        this.actEntities.add(actEntity);
     }
 
+
+
+
+    //link to inventory books
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
+
+    public Set<InventoryBookEntity> getInventoryBookEntities() {
+        return inventoryBookEntities;
+    }
+
+    public void setInventoryBookEntities(Set<InventoryBookEntity> inventoryBookEntities) {
+        this.inventoryBookEntities = inventoryBookEntities;
+    }
+
+    public void addInventoryBookEntities(InventoryBookEntity inventoryBookEntity) {
+        inventoryBookEntity.setEmployeeEntity(this);
+        this.inventoryBookEntities.add(inventoryBookEntity);
+    }
 
 
 
@@ -126,12 +140,11 @@ public class EmployeeEntity {
                 Objects.equals(name, that.name) &&
                 Objects.equals(patronymic, that.patronymic) &&
                 Objects.equals(telephoneNumber, that.telephoneNumber) &&
-                Objects.equals(officeNumber, that.officeNumber) &&
-                Objects.equals(position, that.position);
+                Objects.equals(officeNumber, that.officeNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, surname, name, patronymic, telephoneNumber, officeNumber, position);
+        return Objects.hash(employeeId, surname, name, patronymic, telephoneNumber, officeNumber);
     }
 }

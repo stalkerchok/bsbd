@@ -1,17 +1,27 @@
 package ru.mirea.bsbd.entity;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "inventory_book", schema = "public", catalog = "bsbd_homework")
 public class InventoryBookEntity {
+    @Expose
     private int bookId;
-    private int productId;
-    private String storage;
-    private String date;
-    private String productName;
-    private String productCondition;
+    @Expose
+    private String organizationDenomination;
+    @Expose
+    private int storeId;
+
+    @Expose
+    private Set<ProductEntity> productEntities = new HashSet<>();
+
+
+    private EmployeeEntity employeeEntity;
 
     @Id
     @Column(name = "book_id", nullable = false)
@@ -24,54 +34,59 @@ public class InventoryBookEntity {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false)
-    public int getProductId() {
-        return productId;
+    @Column(name = "organization_denomination", nullable = true, length = 100)
+    public String getOrganizationDenomination() {
+        return organizationDenomination;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    @Basic
-    @Column(name = "storage", nullable = false, length = 100)
-    public String getStorage() {
-        return storage;
-    }
-
-    public void setStorage(String storage) {
-        this.storage = storage;
+    public void setOrganizationDenomination(String organizationDenomination) {
+        this.organizationDenomination = organizationDenomination;
     }
 
     @Basic
-    @Column(name = "date", nullable = false, length = 100)
-    public String getDate() {
-        return date;
+    @Column(name = "store_id", nullable = true)
+    public int getStoreId() {
+        return storeId;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStoreId(int storeId) {
+        this.storeId = storeId;
     }
 
-    @Basic
-    @Column(name = "product_name", nullable = false, length = 100)
-    public String getProductName() {
-        return productName;
+
+
+
+    //link to employee
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+
+    public EmployeeEntity getEmployeeEntity() {
+        return employeeEntity;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
+        this.employeeEntity = employeeEntity;
     }
 
-    @Basic
-    @Column(name = "product_condition", nullable = false, length = 100)
-    public String getProductCondition() {
-        return productCondition;
+
+
+
+    //link to products
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "inventoryBookEntity")
+
+    public Set<ProductEntity> getProductEntities() {
+        return productEntities;
     }
 
-    public void setProductCondition(String productCondition) {
-        this.productCondition = productCondition;
+    public void setProductEntities(Set<ProductEntity> productEntities) {
+        this.productEntities = productEntities;
     }
+
+    public void addProductEntities(ProductEntity productEntity){
+        productEntity.setInventoryBookEntity(this);
+        this.productEntities.add(productEntity);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -79,15 +94,12 @@ public class InventoryBookEntity {
         if (o == null || getClass() != o.getClass()) return false;
         InventoryBookEntity that = (InventoryBookEntity) o;
         return bookId == that.bookId &&
-                productId == that.productId &&
-                Objects.equals(storage, that.storage) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(productName, that.productName) &&
-                Objects.equals(productCondition, that.productCondition);
+                storeId == that.storeId &&
+                Objects.equals(organizationDenomination, that.organizationDenomination);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bookId, productId, storage, date, productName, productCondition);
+        return Objects.hash(bookId, organizationDenomination, storeId);
     }
 }

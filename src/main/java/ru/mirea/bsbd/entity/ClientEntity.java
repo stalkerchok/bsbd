@@ -1,18 +1,32 @@
 package ru.mirea.bsbd.entity;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "client", schema = "public", catalog = "bsbd_homework")
 public class ClientEntity {
+    @Expose
     private int clientId;
+    @Expose
     private String surname;
+    @Expose
     private String name;
+    @Expose
     private String patronymic;
-    private int telephoneNumber;
-    private String adress;
-    private int okpo;
+    @Expose
+    private String telephoneNumber;
+    @Expose
+    private String address;
+    @Expose
+    private Integer okpo;
+
+    @Expose
+    private Set<ActEntity> actEntities = new HashSet<>();
 
     @Id
     @Column(name = "client_id", nullable = false)
@@ -25,7 +39,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "surname", nullable = false, length = 100)
+    @Column(name = "surname", nullable = true, length = 100)
     public String getSurname() {
         return surname;
     }
@@ -35,7 +49,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = true, length = 100)
     public String getName() {
         return name;
     }
@@ -45,7 +59,7 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "patronymic", nullable = false, length = 100)
+    @Column(name = "patronymic", nullable = true, length = 100)
     public String getPatronymic() {
         return patronymic;
     }
@@ -55,33 +69,50 @@ public class ClientEntity {
     }
 
     @Basic
-    @Column(name = "telephone_number", nullable = false)
-    public int getTelephoneNumber() {
+    @Column(name = "telephone_number", nullable = true,  length = 50)
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
     @Basic
-    @Column(name = "adress", nullable = false, length = 1000)
-    public String getAdress() {
-        return adress;
+    @Column(name = "address", nullable = true, length = 1000)
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Basic
-    @Column(name = "okpo", nullable = false)
-    public int getOkpo() {
+    @Column(name = "okpo", nullable = true)
+    public Integer getOkpo() {
         return okpo;
     }
 
-    public void setOkpo(int okpo) {
+    public void setOkpo(Integer okpo) {
         this.okpo = okpo;
+    }
+
+
+    //link to acts
+    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "clientEntity")
+
+    public Set<ActEntity> getActEntities() {
+        return actEntities;
+    }
+
+    public void setActEntities(Set<ActEntity> actEntities) {
+        this.actEntities = actEntities;
+    }
+
+    public void addActEntities(ActEntity actEntity) {
+        actEntity.setClientEntity(this);
+        this.actEntities.add(actEntity);
     }
 
     @Override
@@ -90,16 +121,16 @@ public class ClientEntity {
         if (o == null || getClass() != o.getClass()) return false;
         ClientEntity that = (ClientEntity) o;
         return clientId == that.clientId &&
-                telephoneNumber == that.telephoneNumber &&
-                okpo == that.okpo &&
                 Objects.equals(surname, that.surname) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(patronymic, that.patronymic) &&
-                Objects.equals(adress, that.adress);
+                Objects.equals(telephoneNumber, that.telephoneNumber) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(okpo, that.okpo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clientId, surname, name, patronymic, telephoneNumber, adress, okpo);
+        return Objects.hash(clientId, surname, name, patronymic, telephoneNumber, address, okpo);
     }
 }

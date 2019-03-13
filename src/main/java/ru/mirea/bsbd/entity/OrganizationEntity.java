@@ -1,16 +1,28 @@
 package ru.mirea.bsbd.entity;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "organization", schema = "public", catalog = "bsbd_homework")
 public class OrganizationEntity {
+    @Expose
     private int organizationId;
-    private int okpo;
+    @Expose
+    private String type;
+    @Expose
     private String denomination;
-    private String adress;
-    private String telephoneNumder;
+    @Expose
+    private String address;
+    @Expose
+    private String telephoneNumber;
+    @Expose
+    private Integer okpo;
+
+
+    private ActEntity actEntity;
 
     @Id
     @Column(name = "organization_id", nullable = false)
@@ -23,17 +35,17 @@ public class OrganizationEntity {
     }
 
     @Basic
-    @Column(name = "okpo", nullable = false)
-    public int getOkpo() {
-        return okpo;
+    @Column(name = "type", nullable = true, length = 50)
+    public String getType() {
+        return type;
     }
 
-    public void setOkpo(int okpo) {
-        this.okpo = okpo;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Basic
-    @Column(name = "denomination", nullable = false, length = 1000)
+    @Column(name = "denomination", nullable = true, length = 100)
     public String getDenomination() {
         return denomination;
     }
@@ -43,24 +55,51 @@ public class OrganizationEntity {
     }
 
     @Basic
-    @Column(name = "adress", nullable = false, length = 1000)
-    public String getAdress() {
-        return adress;
+    @Column(name = "address", nullable = true, length = 1000)
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Basic
-    @Column(name = "telephone_numder", nullable = false, length = 12)
-    public String getTelephoneNumder() {
-        return telephoneNumder;
+    @Column(name = "telephone_number", nullable = true, length = 50)
+    public String getTelephoneNumber() {
+        return telephoneNumber;
     }
 
-    public void setTelephoneNumder(String telephoneNumder) {
-        this.telephoneNumder = telephoneNumder;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
+
+    @Basic
+    @Column(name = "okpo", nullable = true)
+    public Integer getOkpo() {
+        return okpo;
+    }
+
+    public void setOkpo(Integer okpo) {
+        this.okpo = okpo;
+    }
+
+
+
+
+    //link to act
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "act_id")
+
+    public ActEntity getActEntity() {
+        return actEntity;
+    }
+
+    public void setActEntity(ActEntity actEntity) {
+        this.actEntity = actEntity;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -68,14 +107,15 @@ public class OrganizationEntity {
         if (o == null || getClass() != o.getClass()) return false;
         OrganizationEntity that = (OrganizationEntity) o;
         return organizationId == that.organizationId &&
-                okpo == that.okpo &&
+                Objects.equals(type, that.type) &&
                 Objects.equals(denomination, that.denomination) &&
-                Objects.equals(adress, that.adress) &&
-                Objects.equals(telephoneNumder, that.telephoneNumder);
+                Objects.equals(address, that.address) &&
+                Objects.equals(telephoneNumber, that.telephoneNumber) &&
+                Objects.equals(okpo, that.okpo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(organizationId, okpo, denomination, adress, telephoneNumder);
+        return Objects.hash(organizationId, type, denomination, address, telephoneNumber, okpo);
     }
 }
