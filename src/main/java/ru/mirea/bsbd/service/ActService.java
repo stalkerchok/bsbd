@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.simplejavamail.email.Email;
+import org.simplejavamail.email.EmailBuilder;
+import org.simplejavamail.mailer.MailerBuilder;
 import ru.mirea.bsbd.common.HibernateSessionFactory;
 import ru.mirea.bsbd.entity.*;
 
@@ -105,6 +108,21 @@ public class ActService {
         session.getTransaction().commit();
         session.close();
 
+        /*
+        Email email = EmailBuilder.startingBlank()
+                .from("Anton", "stalkerchok@gmail.com")
+                .to("Drynya", "herzeleidywka@gmail.com")
+                .to("D1masta", "semenovdmitry1998@gmail.com")
+                .withSubject("Pryvet")
+                .withPlainText("Здарова)")
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25, "stalkerchok@gmail.com", "Stalkerchok1")
+                .buildMailer()
+                .sendMail(email);
+
+                */
         return Response.ok().entity(gson.toJson(act)).build();
     }
 
