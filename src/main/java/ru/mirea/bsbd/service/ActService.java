@@ -13,6 +13,7 @@ import ru.mirea.bsbd.entity.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,14 +26,13 @@ public class ActService {
 
 
     @POST
-    @Path("/create_act/{act_id}/{denomination}/{date}/{structural_subdivision}/{client_id}/{employee_id}")
+    @Path("/create_act/{act_id}/{denomination}/{date}/{structural_subdivision}/{client_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response create_act(@PathParam("act_id") int act_id,
                               @PathParam("denomination") String denomination,
                               @PathParam("date") String date,
                               @PathParam("structural_subdivision") String structural_subdivision,
-                              @PathParam("client_id") int client_id,
-                              @PathParam("employee_id") int employee_id){
+                              @PathParam("client_id") int client_id){
 
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
@@ -44,15 +44,12 @@ public class ActService {
         act.setStructural_subdivision(structural_subdivision);
         act.setStatus("in queue");
 
+        session.saveOrUpdate(act);
+
         ClientEntity client = session.get(ClientEntity.class, client_id);
         client.addActEntities(act);
 
         session.saveOrUpdate(client);
-
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
-        employee.addActEntities(act);
-
-        session.saveOrUpdate(employee);
 
         session.getTransaction().commit();
         session.close();
@@ -61,20 +58,51 @@ public class ActService {
     }
 
     @PUT
-    @Path("/change_act/{act_id}/{denomination}/{date}/{structural_subdivision}/{client_id}/{employee_id}")
+    @Path("/add_employees/{act_id}/{employee_id}/{courier_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response change_act(@PathParam("act_id") int act_id,
-                               @PathParam("denomination") String denomination,
-                               @PathParam("date") String date,
-                               @PathParam("structural_subdivision") String structural_subdivision,
-                               @PathParam("client_id") int client_id,
-                               @PathParam("employee_id") int employee_id) {
+    public Response add_employees(@PathParam("act_id") int act_id,
+                                  @PathParam("employee_id") int employee_id,
+                                  @PathParam("courier_id") int courier_id){
 
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
         ActEntity act = session.get(ActEntity.class, act_id);
-        act.setActId(act_id);
+
+        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
+        employee.getActEntities().add(act);
+
+        session.saveOrUpdate(act);
+        session.saveOrUpdate(employee);
+
+        EmployeeEntity courier = session.get(EmployeeEntity.class, courier_id);
+
+        courier.getActEntities().add(act);
+
+        session.saveOrUpdate(act);
+        session.saveOrUpdate(courier);
+
+        session.getTransaction().commit();
+        session.close();
+
+        return Response.ok().entity(gson.toJson(act)).build();
+
+    }
+
+    @PUT
+    @Path("/change_act/{act_id}/{denomination}/{date}/{structural_subdivision}/{client_id}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response change_act(@PathParam("act_id") int act_id,
+                               @PathParam("denomination") String denomination,
+                               @PathParam("date") String date,
+                               @PathParam("structural_subdivision") String structural_subdivision,
+                               @PathParam("client_id") int client_id) {
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+
         act.setDenomination(denomination);
         act.setDate(date);
         act.setStructural_subdivision(structural_subdivision);
@@ -83,11 +111,6 @@ public class ActService {
         client.addActEntities(act);
 
         session.saveOrUpdate(client);
-
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
-        employee.addActEntities(act);
-
-        session.saveOrUpdate(employee);
 
         session.getTransaction().commit();
         session.close();
@@ -137,7 +160,6 @@ public class ActService {
         Query query = session.createQuery("from ActEntity ");
         List<ActEntity> ActList = query.list();
 
-        session.saveOrUpdate(ActList);
 
         session.getTransaction().commit();
         session.close();
@@ -165,9 +187,63 @@ public class ActService {
 
 
     @PUT
-    @Path("/approve_act/{act_id}")
+    @Path("/approve_act/{act_id}/{password}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response approve_act(@PathParam("act_id") int act_id){
+    public Response approve_act(@PathParam("act_id") int act_id,
+                                @PathParam("password") String password){
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+
+        act.setStatus("approved");
+        session.saveOrUpdate(act);
+
+        String client_name = act.getClientEntity().getName();
+        String client_email = act.getClientEntity().getEmail();
+
+        Set<EmployeeEntity> employees = act.getEmployeeEntities();
+
+        String courier_name = "";
+        String courier_email = "";
+
+        String organization_email = "";
+
+        for (EmployeeEntity employee : employees){
+            if (employee.getPosition().equals("courier")){
+                courier_name = employee.getName();
+                courier_email = employee.getEmail();
+            } else if (employee.getPosition().equals("manager")){
+                organization_email = employee.getEmail();
+            }
+        }
+
+        Email email = EmailBuilder.startingBlank()
+                .from(act.getStructural_subdivision(), organization_email)
+                .to(client_name, client_email)
+                .to(courier_name, courier_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Акт № " + act.getActId() + " одобрен")
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25,  organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+        session.getTransaction().commit();
+        session.close();
+
+
+        return Response.ok().entity(gson.toJson(act)).build();
+    }
+
+    @PUT
+    @Path("/took_act/{act_id}/{password}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response took_act(@PathParam("act_id") int act_id,
+                             @PathParam("password") String password){
 
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
@@ -197,8 +273,125 @@ public class ActService {
             session.saveOrUpdate(purchase);
 
         }
-        act.setStatus("approved");
+        act.setStatus("taken");
         session.saveOrUpdate(act);
+
+
+
+        String client_name = act.getClientEntity().getName();
+        String client_email = act.getClientEntity().getEmail();
+
+        Set<EmployeeEntity> employees = act.getEmployeeEntities();
+
+        String courier_name = "";
+        String courier_email = "";
+
+        String organization_email = "";
+
+        for (EmployeeEntity employee : employees){
+            if (employee.getPosition().equals("courier")){
+                courier_name = employee.getName();
+                courier_email = employee.getEmail();
+            } else if (employee.getPosition().equals("manager")){
+                organization_email = employee.getEmail();
+            }
+        }
+
+
+        Email email = EmailBuilder.startingBlank()
+                .from(courier_name, courier_email)
+                .to(act.getStructural_subdivision(), organization_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Курьер начал доставку заказа акта № " + act.getActId())
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25,  organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+
+        email = EmailBuilder.startingBlank()
+                .from(act.getStructural_subdivision(), organization_email)
+                .to(client_name, client_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Курьер начал доставку заказа акта № " + act.getActId())
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25,  organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+
+        session.getTransaction().commit();
+        session.close();
+
+
+        return Response.ok().entity(gson.toJson(act)).build();
+
+    }
+
+
+    @PUT
+    @Path("/gave_act/{act_id}/{password}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response gave_act(@PathParam("act_id") int act_id,
+                             @PathParam("password") String password) {
+
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+
+        act.setStatus("gave");
+
+        String client_name = act.getClientEntity().getName();
+        String client_email = act.getClientEntity().getEmail();
+
+        Set<EmployeeEntity> employees = act.getEmployeeEntities();
+
+        String courier_name = "";
+        String courier_email = "";
+
+        String organization_email = "";
+
+        for (EmployeeEntity employee : employees) {
+            if (employee.getPosition().equals("courier")) {
+                courier_name = employee.getName();
+                courier_email = employee.getEmail();
+            } else if (employee.getPosition().equals("manager")) {
+                organization_email = employee.getEmail();
+            }
+        }
+
+
+        Email email = EmailBuilder.startingBlank()
+                .from(courier_name, courier_email)
+                .to(act.getStructural_subdivision(), organization_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Курьер доставил заказ акта № " + act.getActId())
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25, organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+
+        email = EmailBuilder.startingBlank()
+                .from(act.getStructural_subdivision(), organization_email)
+                .to(client_name, client_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Курьер доставил заказ акта № " + act.getActId())
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25, organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
 
         session.getTransaction().commit();
         session.close();
@@ -206,5 +399,4 @@ public class ActService {
 
         return Response.ok().entity(gson.toJson(act)).build();
     }
-
 }

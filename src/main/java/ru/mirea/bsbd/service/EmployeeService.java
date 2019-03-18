@@ -20,12 +20,14 @@ public class EmployeeService {
     Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 
     @POST
-    @Path("/create_employee/{employee_id}/{name}/{surname}/{patronymic}/{telephone_number}/{office_number}")
+    @Path("/create_employee/{employee_id}/{position}/{name}/{surname}/{patronymic}/{email}/{telephone_number}/{office_number}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response create_employee(@PathParam("employee_id") int employee_id,
+                                    @PathParam("position") String position,
                                     @PathParam("name") String name,
                                     @PathParam("surname") String surname,
                                     @PathParam("patronymic") String patronymic,
+                                    @PathParam("email") String email,
                                     @PathParam("telephone_number") String telephone_number,
                                     @PathParam("office_number") int office_number){
 
@@ -36,9 +38,11 @@ public class EmployeeService {
         EmployeeEntity employee = new EmployeeEntity();
 
         employee.setEmployeeId(employee_id);
+        employee.setPosition(position);
         employee.setName(name);
         employee.setSurname(surname);
         employee.setPatronymic(patronymic);
+        employee.setEmail(email);
         employee.setTelephoneNumber(telephone_number);
         employee.setOfficeNumber(office_number);
 
@@ -51,12 +55,14 @@ public class EmployeeService {
     }
 
     @PUT
-    @Path("/change_employee/{employee_id}/{name}/{surname}/{patronymic}/{telephone_number}/{office_number}")
+    @Path("/change_employee/{employee_id}/{position}/{name}/{surname}/{patronymic}/{email}/{telephone_number}/{office_number}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response change_employee(@PathParam("employee_id") int employee_id,
+                                    @PathParam("position") String position,
                                     @PathParam("name") String name,
                                     @PathParam("surname") String surname,
                                     @PathParam("patronymic") String patronymic,
+                                    @PathParam("email") String email,
                                     @PathParam("telephone_number") String telephone_number,
                                     @PathParam("office_number") int office_number){
 
@@ -66,9 +72,11 @@ public class EmployeeService {
 
         EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
 
+        employee.setPosition(position);
         employee.setName(name);
         employee.setSurname(surname);
         employee.setPatronymic(patronymic);
+        employee.setEmail(email);
         employee.setTelephoneNumber(telephone_number);
         employee.setOfficeNumber(office_number);
 

@@ -13,11 +13,15 @@ public class EmployeeEntity {
     @Expose
     private int employeeId;
     @Expose
+    private String position;
+    @Expose
     private String surname;
     @Expose
     private String name;
     @Expose
     private String patronymic;
+    @Expose
+    private String email;
     @Expose
     private String telephoneNumber;
     @Expose
@@ -92,9 +96,23 @@ public class EmployeeEntity {
     }
 
 
+    @Basic
+    @Column(name = "position", nullable = true, length = 100)
+    public String getPosition() { return position; }
 
+    public void setPosition(String position) { this.position = position; }
+
+
+    @Basic
+    @Column(name = "email", nullable = true, length = 100)
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+
+    /*
     //link to acts
-    @OneToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
 
     public Set<ActEntity> getActEntities() {
         return actEntities;
@@ -108,8 +126,30 @@ public class EmployeeEntity {
         actEntity.setEmployeeEntity(this);
         this.actEntities.add(actEntity);
     }
+    */
+
+    //link to acts
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "act_employee",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "act_id")}
+    )
+    public Set<ActEntity> getActEntities() {
+        return actEntities;
+    }
+
+    public void setActEntities(Set<ActEntity> actEntities) {
+        this.actEntities = actEntities;
+    }
+
+    public void addActEntities(ActEntity actEntity) {
+        actEntity.addEmpolyeeEntities(this);
+        this.actEntities.add(actEntity);
+    }
 
 
+    
 
 
     //link to inventory books

@@ -29,7 +29,9 @@ public class ActEntity {
 
     private ClientEntity clientEntity;
 
-    private EmployeeEntity employeeEntity;
+    private Set<EmployeeEntity> employeeEntities = new HashSet<>();
+
+    //private EmployeeEntity employeeEntity;
 
 
     @Id
@@ -84,7 +86,7 @@ public class ActEntity {
     }
 
 
-
+    /*
     //link to employee
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "employee_id")
@@ -96,6 +98,7 @@ public class ActEntity {
     public void setEmployeeEntity(EmployeeEntity employeeEntity) {
         this.employeeEntity = employeeEntity;
     }
+    */
 
     //link to client
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -144,6 +147,30 @@ public class ActEntity {
         purchaseEntity.setActEntity(this);
         this.purchaseEntities.add(purchaseEntity);
     }
+
+
+
+
+    //link to employees
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "act_employee",
+            joinColumns = {@JoinColumn(name = "act_id")},
+            inverseJoinColumns = {@JoinColumn(name = "employee_id")}
+    )
+
+    public Set<EmployeeEntity> getEmployeeEntities() {
+        return employeeEntities;
+    }
+
+    public void setEmployeeEntities(Set<EmployeeEntity> employeeEntities) {
+        this.employeeEntities = employeeEntities;
+    }
+
+    public void addEmpolyeeEntities(EmployeeEntity employeeEntity){
+        this.employeeEntities.add(employeeEntity);
+    }
+
 
 
     @Override

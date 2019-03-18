@@ -2,7 +2,6 @@ package ru.mirea.bsbd.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import ru.mirea.bsbd.common.HibernateSessionFactory;

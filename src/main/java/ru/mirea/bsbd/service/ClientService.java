@@ -22,12 +22,13 @@ public class ClientService {
     public ClientService(){}
 
     @POST
-    @Path("/create_client/{client_id}/{name}/{surname}/{patronymic}/{address}/{telephone_number}/{okpo}")
+    @Path("/create_client/{client_id}/{name}/{surname}/{patronymic}/{email}/{address}/{telephone_number}/{okpo}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response create_client(@PathParam("client_id") int client_id,
                                  @PathParam("name") String name,
                                  @PathParam("surname") String surname,
                                  @PathParam("patronymic") String patronymic,
+                                 @PathParam("email") String email,
                                  @PathParam("address") String address,
                                  @PathParam("telephone_number") String telephone_number,
                                  @PathParam("okpo") int okpo){
@@ -42,6 +43,7 @@ public class ClientService {
         client.setName(name);
         client.setSurname(surname);
         client.setPatronymic(patronymic);
+        client.setEmail(email);
         client.setAddress(address);
         client.setTelephoneNumber(telephone_number);
         client.setOkpo(okpo);
@@ -52,15 +54,17 @@ public class ClientService {
         session.close();
 
         return Response.ok().entity(gson.toJson(client)).build();
+
     }
 
     @PUT
-    @Path("/change_client/{client_id}/{name}/{surname}/{patronymic}/{address}/{telephone_number}/{okpo}")
+    @Path("/change_client/{client_id}/{name}/{surname}/{patronymic}/{email}/{address}/{telephone_number}/{okpo}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response change_client(@PathParam("client_id") int client_id,
                                  @PathParam("name") String name,
                                  @PathParam("surname") String surname,
                                  @PathParam("patronymic") String patronymic,
+                                 @PathParam("email") String email,
                                  @PathParam("address") String address,
                                  @PathParam("telephone_number") String telephone_number,
                                  @PathParam("okpo") int okpo){
@@ -74,6 +78,7 @@ public class ClientService {
         client.setName(name);
         client.setSurname(surname);
         client.setPatronymic(patronymic);
+        client.setEmail(email);
         client.setAddress(address);
         client.setTelephoneNumber(telephone_number);
         client.setOkpo(okpo);
@@ -121,7 +126,7 @@ public class ClientService {
         return Response.ok().entity(gson.toJson(ClientList)).build();
     }
 
-    @GET
+    @DELETE
     @Path("/delete_client/{client_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response delete_client(@PathParam("client_id") int client_id){

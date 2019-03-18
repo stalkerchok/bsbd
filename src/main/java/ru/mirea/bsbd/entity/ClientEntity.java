@@ -19,6 +19,8 @@ public class ClientEntity {
     @Expose
     private String patronymic;
     @Expose
+    private String email;
+    @Expose
     private String telephoneNumber;
     @Expose
     private String address;
@@ -97,6 +99,14 @@ public class ClientEntity {
     public void setOkpo(Integer okpo) {
         this.okpo = okpo;
     }
+
+
+    @Basic
+    @Column(name = "email", nullable = true, length = 100)
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
 
 
     //link to acts
