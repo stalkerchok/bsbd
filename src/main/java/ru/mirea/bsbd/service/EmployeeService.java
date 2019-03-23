@@ -20,10 +20,9 @@ public class EmployeeService {
     Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 
     @POST
-    @Path("/create_employee/{employee_id}/{position}/{name}/{surname}/{patronymic}/{email}/{telephone_number}/{office_number}")
+    @Path("/create_employee/{position}/{name}/{surname}/{patronymic}/{email}/{telephone_number}/{office_number}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_employee(@PathParam("employee_id") int employee_id,
-                                    @PathParam("position") String position,
+    public Response create_employee(@PathParam("position") String position,
                                     @PathParam("name") String name,
                                     @PathParam("surname") String surname,
                                     @PathParam("patronymic") String patronymic,
@@ -37,7 +36,6 @@ public class EmployeeService {
 
         EmployeeEntity employee = new EmployeeEntity();
 
-        employee.setEmployeeId(employee_id);
         employee.setPosition(position);
         employee.setName(name);
         employee.setSurname(surname);

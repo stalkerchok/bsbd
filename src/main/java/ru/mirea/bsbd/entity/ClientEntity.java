@@ -31,6 +31,8 @@ public class ClientEntity {
     private Set<ActEntity> actEntities = new HashSet<>();
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "client_client_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "client_id", nullable = false)
     public int getClientId() {
         return clientId;

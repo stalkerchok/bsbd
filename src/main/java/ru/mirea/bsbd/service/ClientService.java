@@ -22,10 +22,9 @@ public class ClientService {
     public ClientService(){}
 
     @POST
-    @Path("/create_client/{client_id}/{name}/{surname}/{patronymic}/{email}/{address}/{telephone_number}/{okpo}")
+    @Path("/create_client/{name}/{surname}/{patronymic}/{email}/{address}/{telephone_number}/{okpo}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_client(@PathParam("client_id") int client_id,
-                                 @PathParam("name") String name,
+    public Response create_client(@PathParam("name") String name,
                                  @PathParam("surname") String surname,
                                  @PathParam("patronymic") String patronymic,
                                  @PathParam("email") String email,
@@ -39,7 +38,6 @@ public class ClientService {
 
         ClientEntity client = new ClientEntity();
 
-        client.setClientId(client_id);
         client.setName(name);
         client.setSurname(surname);
         client.setPatronymic(patronymic);

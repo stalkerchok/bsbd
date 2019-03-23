@@ -21,10 +21,9 @@ public class InventoryBookService {
     Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 
     @POST
-    @Path("/create_book/{book_id}/{store_id}/{organization_denomination}/{employee_id}")
+    @Path("/create_book/{store_id}/{organization_denomination}/{employee_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_book(@PathParam("book_id") int book_id,
-                                @PathParam("store_id") int store_id,
+    public Response create_book(@PathParam("store_id") int store_id,
                                 @PathParam("organization_denomination") String organization_denomination,
                                 @PathParam("employee_id") int employee_id){
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
@@ -32,14 +31,15 @@ public class InventoryBookService {
 
         InventoryBookEntity book = new InventoryBookEntity();
 
-        book.setBookId(book_id);
-        book.setStoreId(store_id);
-        book.setOrganizationDenomination(organization_denomination);
-
         EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
         employee.addInventoryBookEntities(book);
 
         session.saveOrUpdate(employee);
+
+        book.setStoreId(store_id);
+        book.setOrganizationDenomination(organization_denomination);
+
+        session.saveOrUpdate(book);
 
         session.getTransaction().commit();
         session.close();

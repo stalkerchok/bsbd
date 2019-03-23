@@ -25,6 +25,8 @@ public class OrganizationEntity {
     private ActEntity actEntity;
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "organization_organization_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "organization_id", nullable = false)
     public int getOrganizationId() {
         return organizationId;
@@ -89,7 +91,7 @@ public class OrganizationEntity {
 
     //link to act
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "act_id")
+    @JoinColumn(name = "organization_act_id")
 
     public ActEntity getActEntity() {
         return actEntity;

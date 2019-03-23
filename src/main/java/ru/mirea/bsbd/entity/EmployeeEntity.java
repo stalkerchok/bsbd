@@ -36,6 +36,8 @@ public class EmployeeEntity {
 
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "employee_employee_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "employee_id", nullable = false)
     public int getEmployeeId() {
         return employeeId;
@@ -132,8 +134,8 @@ public class EmployeeEntity {
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "act_employee",
-            joinColumns = {@JoinColumn(name = "employee_id")},
-            inverseJoinColumns = {@JoinColumn(name = "act_id")}
+            joinColumns = {@JoinColumn(name = "mm_employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "mm_act_id")}
     )
     public Set<ActEntity> getActEntities() {
         return actEntities;

@@ -24,6 +24,8 @@ public class InventoryBookEntity {
     private EmployeeEntity employeeEntity;
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "inventory_book_book_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "book_id", nullable = false)
     public int getBookId() {
         return bookId;
@@ -58,7 +60,7 @@ public class InventoryBookEntity {
 
     //link to employee
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "book_employee_id")
 
     public EmployeeEntity getEmployeeEntity() {
         return employeeEntity;

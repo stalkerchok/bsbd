@@ -21,10 +21,9 @@ public class ProductService {
     Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 
     @POST
-    @Path("create_product/{product_id}/{product_denomination}/{unit}/{amount}/{value}/{okei}/{vat}/{discount}/{book_id}")
+    @Path("create_product/{product_denomination}/{unit}/{amount}/{value}/{okei}/{vat}/{discount}/{book_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_product(@PathParam("product_id") int product_id,
-                                   @PathParam("product_denomination") String product_denomination,
+    public Response create_product(@PathParam("product_denomination") String product_denomination,
                                    @PathParam("unit") String unit,
                                    @PathParam("amount") double amount,
                                    @PathParam("value") double value,
@@ -38,7 +37,11 @@ public class ProductService {
 
         ProductEntity product = new ProductEntity();
 
-        product.setProductId(product_id);
+        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
+        book.addProductEntities(product);
+
+        session.saveOrUpdate(book);
+
         product.setProductDenomination(product_denomination);
         product.setUnit(unit);
         product.setAmount(amount);
@@ -47,10 +50,7 @@ public class ProductService {
         product.setVat(vat);
         product.setDiscount(discount);
 
-        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
-        book.addProductEntities(product);
-
-        session.saveOrUpdate(book);
+        session.saveOrUpdate(product);
 
         session.getTransaction().commit();
         session.close();

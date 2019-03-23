@@ -41,6 +41,8 @@ public class PurchaseEntity {
 
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "purchase_purchase_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "purchase_id", nullable = false)
     public int getPurchaseId() {
         return purchaseId;
@@ -175,7 +177,7 @@ public class PurchaseEntity {
 
     //link to act
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "act_id")
+    @JoinColumn(name = "purchase_act_id")
 
     public ActEntity getActEntity() {
         return actEntity;

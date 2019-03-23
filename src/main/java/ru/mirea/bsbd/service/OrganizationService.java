@@ -21,10 +21,9 @@ public class OrganizationService {
     Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 
     @POST
-    @Path("create_organization/{organization_id}/{type}/{denomination}/{address}/{telephone_number}/{okpo}/{act_id}")
+    @Path("create_organization/{type}/{denomination}/{address}/{telephone_number}/{okpo}/{act_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_organization(@PathParam("organization_id") int organization_id,
-                                        @PathParam("type") String type,
+    public Response create_organization(@PathParam("type") String type,
                                         @PathParam("denomination") String denomination,
                                         @PathParam("address") String address,
                                         @PathParam("telephone_number") String telephone_number,
@@ -35,17 +34,19 @@ public class OrganizationService {
         session.beginTransaction();
 
         OrganizationEntity organization = new OrganizationEntity();
-        organization.setOrganizationId(organization_id);
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+        act.addOrganizationEntities(organization);
+
+        session.saveOrUpdate(act);
+
         organization.setType(type);
         organization.setDenomination(denomination);
         organization.setAddress(address);
         organization.setTelephoneNumber(telephone_number);
         organization.setOkpo(okpo);
 
-        ActEntity act = session.get(ActEntity.class, act_id);
-        act.addOrganizationEntities(organization);
-
-        session.saveOrUpdate(act);
+        session.saveOrUpdate(organization);
 
         session.getTransaction().commit();
         session.close();

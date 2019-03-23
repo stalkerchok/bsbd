@@ -13,7 +13,6 @@ import ru.mirea.bsbd.entity.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,10 +25,9 @@ public class ActService {
 
 
     @POST
-    @Path("/create_act/{act_id}/{denomination}/{date}/{structural_subdivision}/{client_id}")
+    @Path("/create_act/{denomination}/{date}/{structural_subdivision}/{client_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_act(@PathParam("act_id") int act_id,
-                              @PathParam("denomination") String denomination,
+    public Response create_act(@PathParam("denomination") String denomination,
                               @PathParam("date") String date,
                               @PathParam("structural_subdivision") String structural_subdivision,
                               @PathParam("client_id") int client_id){
@@ -38,18 +36,18 @@ public class ActService {
         session.beginTransaction();
 
         ActEntity act = new ActEntity();
-        act.setActId(act_id);
+
+        ClientEntity client = session.get(ClientEntity.class, client_id);
+        client.addActEntities(act);
+
+        session.saveOrUpdate(client);
+
         act.setDenomination(denomination);
         act.setDate(date);
         act.setStructural_subdivision(structural_subdivision);
         act.setStatus("in queue");
 
         session.saveOrUpdate(act);
-
-        ClientEntity client = session.get(ClientEntity.class, client_id);
-        client.addActEntities(act);
-
-        session.saveOrUpdate(client);
 
         session.getTransaction().commit();
         session.close();

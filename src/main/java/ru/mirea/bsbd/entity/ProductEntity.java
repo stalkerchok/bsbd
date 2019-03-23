@@ -30,6 +30,8 @@ public class ProductEntity {
     private InventoryBookEntity inventoryBookEntity;
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "product_product_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "product_id", nullable = false)
     public int getProductId() {
         return productId;
@@ -116,7 +118,7 @@ public class ProductEntity {
 
     //link to book
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "product_book_id")
 
     public InventoryBookEntity getInventoryBookEntity() {
         return inventoryBookEntity;

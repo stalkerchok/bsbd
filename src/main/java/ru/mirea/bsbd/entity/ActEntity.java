@@ -35,6 +35,8 @@ public class ActEntity {
 
 
     @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "act_act_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "pk_sequence")
     @Column(name = "act_id", nullable = false)
     public int getActId() {
         return actId;
@@ -102,7 +104,7 @@ public class ActEntity {
 
     //link to client
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "act_client_id")
 
     public ClientEntity getClientEntity(){
         return this.clientEntity;
@@ -155,8 +157,8 @@ public class ActEntity {
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "act_employee",
-            joinColumns = {@JoinColumn(name = "act_id")},
-            inverseJoinColumns = {@JoinColumn(name = "employee_id")}
+            joinColumns = {@JoinColumn(name = "mm_act_id")},
+            inverseJoinColumns = {@JoinColumn(name = "mm_employee_id")}
     )
 
     public Set<EmployeeEntity> getEmployeeEntities() {

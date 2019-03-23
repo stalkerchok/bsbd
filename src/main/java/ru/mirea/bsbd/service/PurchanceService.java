@@ -21,10 +21,9 @@ public class PurchanceService {
     Gson gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 
     @POST
-    @Path("create_purchase/{purchase_id}/{product_denomination}/{product_id}/{unit}/{okei}/{ordered}/{act_id}")
+    @Path("create_purchase/{product_denomination}/{product_id}/{unit}/{okei}/{ordered}/{act_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
-    public Response create_purchase(@PathParam("purchase_id") int purchase_id,
-                                    @PathParam("product_denomination") String product_denomination,
+    public Response create_purchase(@PathParam("product_denomination") String product_denomination,
                                     @PathParam("product_id") int product_id,
                                     @PathParam("unit") String unit,
                                     @PathParam("okei") int okei,
@@ -35,7 +34,12 @@ public class PurchanceService {
         session.beginTransaction();
 
         PurchaseEntity purchase = new PurchaseEntity();
-        purchase.setPurchaseId(purchase_id);
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+        act.addPurchaseEntities(purchase);
+
+        session.saveOrUpdate(act);
+
         purchase.setProductDenomination(product_denomination);
         purchase.setProductId(product_id);
         purchase.setUnit(unit);
@@ -62,10 +66,7 @@ public class PurchanceService {
         session.saveOrUpdate(purchase);
         purchase.setSumWithVat(purchase.getSumWithoutVat() + purchase.getVatSum());
 
-        ActEntity act = session.get(ActEntity.class, act_id);
-        act.addPurchaseEntities(purchase);
-
-        session.saveOrUpdate(act);
+        session.saveOrUpdate(purchase);
 
         session.getTransaction().commit();
         session.close();
