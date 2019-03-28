@@ -397,4 +397,141 @@ public class ActService {
 
         return Response.ok().entity(gson.toJson(act)).build();
     }
+
+    @PUT
+    @Path("/deny_act/{act_id}/{password}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response deny_act(@PathParam("act_id") int act_id,
+                             @PathParam("password") String password){
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+
+        act.setStatus("denied");
+
+        session.saveOrUpdate(act);
+
+
+        String client_name = act.getClientEntity().getName();
+        String client_email = act.getClientEntity().getEmail();
+
+        Set<EmployeeEntity> employees = act.getEmployeeEntities();
+
+        String courier_name = "";
+        String courier_email = "";
+
+        String organization_email = "";
+
+        for (EmployeeEntity employee : employees){
+            if (employee.getPosition().equals("courier")){
+                courier_name = employee.getName();
+                courier_email = employee.getEmail();
+            } else if (employee.getPosition().equals("manager")){
+                organization_email = employee.getEmail();
+            }
+        }
+
+
+        Email email = EmailBuilder.startingBlank()
+                .from(courier_name, courier_email)
+                .to(act.getStructural_subdivision(), organization_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Клиент отказался от заказа акта № " + act.getActId())
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25,  organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+
+        email = EmailBuilder.startingBlank()
+                .from(act.getStructural_subdivision(), organization_email)
+                .to(client_name, client_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Клиент отказался от заказа акта № " + act.getActId())
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25,  organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+
+        session.getTransaction().commit();
+        session.close();
+
+
+        return Response.ok().entity(gson.toJson(act)).build();
+
+    }
+
+    @PUT
+    @Path("/return_act/{act_id}/{password}")
+    @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
+    public Response return_act(@PathParam("act_id") int act_id,
+                             @PathParam("password") String password){
+
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        ActEntity act = session.get(ActEntity.class, act_id);
+        Set<PurchaseEntity> purchaseEntities = act.getPurchaseEntities();
+
+        for (PurchaseEntity purchase : purchaseEntities) {
+
+            int product_id = purchase.getProductId();
+            ProductEntity product = session.get(ProductEntity.class, product_id);
+            double amount = product.getAmount();
+
+            product.setAmount(amount + purchase.getReleased());
+
+            purchase.setReleased(0.0);
+
+        }
+
+        act.setStatus("returned");
+        session.saveOrUpdate(act);
+
+
+
+        Set<EmployeeEntity> employees = act.getEmployeeEntities();
+
+        String courier_name = "";
+        String courier_email = "";
+
+        String organization_email = "";
+
+        for (EmployeeEntity employee : employees){
+            if (employee.getPosition().equals("courier")){
+                courier_name = employee.getName();
+                courier_email = employee.getEmail();
+            } else if (employee.getPosition().equals("manager")){
+                organization_email = employee.getEmail();
+            }
+        }
+
+
+        Email email = EmailBuilder.startingBlank()
+                .from(courier_name, courier_email)
+                .to(act.getStructural_subdivision(), organization_email)
+                .withSubject("Информация о заказе")
+                .withPlainText("Курьер вернул заказ акта № " + act.getActId() + " на склад")
+                .buildEmail();
+
+        MailerBuilder
+                .withSMTPServer("smtp.gmail.com", 25,  organization_email, password)
+                .buildMailer()
+                .sendMail(email);
+
+
+        session.getTransaction().commit();
+        session.close();
+
+
+        return Response.ok().entity(gson.toJson(act)).build();
+
+    }
 }

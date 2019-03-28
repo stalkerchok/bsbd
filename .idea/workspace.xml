@@ -8,36 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8837382e-43be-4e17-aaf5-f1c46f6dc2a9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/ActEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/ActEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/ClientEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/ClientEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/EmployeeEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/EmployeeEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/InventoryBookEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/InventoryBookEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/OrganizationEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/OrganizationEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/ProductEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/ProductEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/PurchaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/entity/PurchaseEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/ActService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/ActService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/ClientService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/EmployeeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/EmployeeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/InventoryBookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/InventoryBookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/OrganizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/OrganizationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/ProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/PurchanceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/bsbd/WEB-INF/classes/ru/mirea/bsbd/service/PurchanceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hibernate.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/ActEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/ActEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/ClientEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/ClientEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/EmployeeEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/EmployeeEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/InventoryBookEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/InventoryBookEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/OrganizationEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/OrganizationEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/ProductEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/ProductEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/PurchaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/entity/PurchaseEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/ActService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/ActService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/ClientService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/EmployeeService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/EmployeeService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/InventoryBookService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/InventoryBookService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/OrganizationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/OrganizationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/ProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/PurchanceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ru/mirea/bsbd/service/PurchanceService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -66,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="750">
-              <caret line="50" selection-start-line="50" selection-end-line="50" />
+            <state relative-caret-position="602">
+              <caret line="520" column="92" lean-forward="true" selection-start-line="520" selection-start-column="92" selection-end-line="520" selection-end-column="92" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -110,11 +81,11 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/PurchaseEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/OrganizationService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/InventoryBookService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ProductService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/PurchanceService.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/InventoryBookEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java" />
       </list>
     </option>
   </component>
@@ -147,6 +118,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -246,14 +218,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="JPA.DatabaseSchemaImportDialog" value="09d55e7d-deba-4dc4-8401-ef4875ffd567" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553354229238" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553354311976" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ccp1/ccp" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -388,6 +359,8 @@
       <workItem from="1552907881564" duration="11191000" />
       <workItem from="1553240634778" duration="1132000" />
       <workItem from="1553348509223" duration="5705000" />
+      <workItem from="1553673281948" duration="599000" />
+      <workItem from="1553753135565" duration="2139000" />
     </task>
     <task id="LOCAL-00001" summary="v4">
       <created>1552749184743</created>
@@ -407,13 +380,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115805000" />
+    <option name="totallyTimeSpent" value="118543000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="31" width="1926" height="1123" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57571626" visible="true" weight="0.17412141" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57571626" visible="true" weight="0.21458998" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" sideWeight="0.42428377" side_tool="true" weight="0.17412141" />
@@ -500,13 +473,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/TestSerialEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/TestSerialEntity.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/entity/ActEmployeeEntityPK.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -634,8 +601,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/mirea/bsbd/service/ActService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="602">
+          <caret line="520" column="92" lean-forward="true" selection-start-line="520" selection-start-column="92" selection-end-line="520" selection-end-column="92" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
