@@ -112,24 +112,6 @@ public class EmployeeEntity {
     public void setEmail(String email) { this.email = email; }
 
 
-    /*
-    //link to acts
-    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "employeeEntity")
-
-    public Set<ActEntity> getActEntities() {
-        return actEntities;
-    }
-
-    public void setActEntities(Set<ActEntity> actEntities) {
-        this.actEntities = actEntities;
-    }
-
-    public void addActEntities(ActEntity actEntity) {
-        actEntity.setEmployeeEntity(this);
-        this.actEntities.add(actEntity);
-    }
-    */
-
     //link to acts
     @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(

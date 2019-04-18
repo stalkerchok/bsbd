@@ -35,27 +35,38 @@ public class ProductService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ProductEntity product = new ProductEntity();
+        try {
 
-        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
-        book.addProductEntities(product);
+            InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
 
-        session.saveOrUpdate(book);
+            ProductEntity product = new ProductEntity();
 
-        product.setProductDenomination(product_denomination);
-        product.setUnit(unit);
-        product.setAmount(amount);
-        product.setValue(value);
-        product.setOkei(okei);
-        product.setVat(vat);
-        product.setDiscount(discount);
+            book.addProductEntities(product);
 
-        session.saveOrUpdate(product);
+            session.saveOrUpdate(book);
 
-        session.getTransaction().commit();
-        session.close();
+            product.setProductDenomination(product_denomination);
+            product.setUnit(unit);
+            product.setAmount(amount);
+            product.setValue(value);
+            product.setOkei(okei);
+            product.setVat(vat);
+            product.setDiscount(discount);
 
-        return Response.ok().entity(gson.toJson(product)).build();
+            session.saveOrUpdate(product);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(product)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @PUT
@@ -74,73 +85,117 @@ public class ProductService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ProductEntity product = session.get(ProductEntity.class, product_id);
+        try {
 
-        product.setProductDenomination(product_denomination);
-        product.setUnit(unit);
-        product.setAmount(amount);
-        product.setValue(value);
-        product.setOkei(okei);
-        product.setVat(vat);
-        product.setDiscount(discount);
+            InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
 
-        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
-        book.addProductEntities(product);
+            ProductEntity product = session.get(ProductEntity.class, product_id);
 
-        session.saveOrUpdate(book);
+            product.setProductDenomination(product_denomination);
+            product.setUnit(unit);
+            product.setAmount(amount);
+            product.setValue(value);
+            product.setOkei(okei);
+            product.setVat(vat);
+            product.setDiscount(discount);
 
-        session.getTransaction().commit();
-        session.close();
+            book.addProductEntities(product);
 
-        return Response.ok().entity(gson.toJson(product)).build();
+            session.saveOrUpdate(book);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(product)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("get_product/{product_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_product(@PathParam("product_id") int product_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ProductEntity product = session.get(ProductEntity.class, product_id);
+        try {
 
-        session.getTransaction().commit();
-        session.close();
+            ProductEntity product = session.get(ProductEntity.class, product_id);
 
-        return Response.ok().entity(gson.toJson(product)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(product)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("get_all_products")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_all_products(){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from ProductEntity ");
-        List<ProductEntity> ProductList = query.list();
+        try {
 
-        session.getTransaction().commit();
-        session.close();
+            Query query = session.createQuery("from ProductEntity ");
+            List<ProductEntity> ProductList = query.list();
 
-        return Response.ok().entity(gson.toJson(ProductList)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(ProductList)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @DELETE
     @Path("delete_product/{product_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response delete_product(@PathParam("product_id") int product_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ProductEntity product = session.get(ProductEntity.class, product_id);
+        try {
 
-        session.delete(product);
+            ProductEntity product = session.get(ProductEntity.class, product_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.delete(product);
 
-        return Response.ok().build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
 }

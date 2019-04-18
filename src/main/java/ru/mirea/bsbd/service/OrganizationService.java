@@ -33,25 +33,36 @@ public class OrganizationService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        OrganizationEntity organization = new OrganizationEntity();
+        try {
 
-        ActEntity act = session.get(ActEntity.class, act_id);
-        act.addOrganizationEntities(organization);
+            ActEntity act = session.get(ActEntity.class, act_id);
 
-        session.saveOrUpdate(act);
+            OrganizationEntity organization = new OrganizationEntity();
 
-        organization.setType(type);
-        organization.setDenomination(denomination);
-        organization.setAddress(address);
-        organization.setTelephoneNumber(telephone_number);
-        organization.setOkpo(okpo);
+            act.addOrganizationEntities(organization);
 
-        session.saveOrUpdate(organization);
+            session.saveOrUpdate(act);
 
-        session.getTransaction().commit();
-        session.close();
+            organization.setType(type);
+            organization.setDenomination(denomination);
+            organization.setAddress(address);
+            organization.setTelephoneNumber(telephone_number);
+            organization.setOkpo(okpo);
 
-        return Response.ok().entity(gson.toJson(organization)).build();
+            session.saveOrUpdate(organization);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(organization)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @PUT
@@ -68,74 +79,118 @@ public class OrganizationService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        OrganizationEntity organization = session.get(OrganizationEntity.class, organization_id);
+        try {
 
-        organization.setType(type);
-        organization.setDenomination(denomination);
-        organization.setAddress(address);
-        organization.setTelephoneNumber(telephone_number);
-        organization.setOkpo(okpo);
+            ActEntity act = session.get(ActEntity.class, act_id);
 
-        ActEntity act = session.get(ActEntity.class, act_id);
-        act.addOrganizationEntities(organization);
+            OrganizationEntity organization = session.get(OrganizationEntity.class, organization_id);
 
-        session.saveOrUpdate(act);
+            organization.setType(type);
+            organization.setDenomination(denomination);
+            organization.setAddress(address);
+            organization.setTelephoneNumber(telephone_number);
+            organization.setOkpo(okpo);
 
-        session.getTransaction().commit();
-        session.close();
+            act.addOrganizationEntities(organization);
 
-        return Response.ok().entity(gson.toJson(organization)).build();
+            session.saveOrUpdate(act);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(organization)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("get_organization/{organization_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_organization(@PathParam("organization_id") int organization_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        OrganizationEntity organization = session.get(OrganizationEntity.class, organization_id);
+        try {
 
-        session.saveOrUpdate(organization);
+            OrganizationEntity organization = session.get(OrganizationEntity.class, organization_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(organization);
 
-        return Response.ok().entity(gson.toJson(organization)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(organization)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("get_all_organizations")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_all_organizations(){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from OrganizationEntity ");
-        List<OrganizationEntity> OrganizationList = query.list();
+        try {
 
-        session.saveOrUpdate(OrganizationList);
+            Query query = session.createQuery("from OrganizationEntity ");
+            List<OrganizationEntity> OrganizationList = query.list();
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(OrganizationList);
 
-        return Response.ok().entity(gson.toJson(OrganizationList)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(OrganizationList)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @DELETE
     @Path("/delete_organization/{organization_id}")
             @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
             public Response delete_organization(@PathParam("organization_id") int organization_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        OrganizationEntity organization = session.get(OrganizationEntity.class, organization_id);
+        try {
 
-        session.delete(organization);
+            OrganizationEntity organization = session.get(OrganizationEntity.class, organization_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.delete(organization);
 
-        return Response.ok().build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 }

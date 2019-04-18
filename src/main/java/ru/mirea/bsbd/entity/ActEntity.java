@@ -31,8 +31,6 @@ public class ActEntity {
 
     private Set<EmployeeEntity> employeeEntities = new HashSet<>();
 
-    //private EmployeeEntity employeeEntity;
-
 
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "act_act_id_seq", allocationSize = 1)
@@ -87,20 +85,6 @@ public class ActEntity {
         this.status = status;
     }
 
-
-    /*
-    //link to employee
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
-
-    public EmployeeEntity getEmployeeEntity(){
-        return this.employeeEntity;
-    }
-
-    public void setEmployeeEntity(EmployeeEntity employeeEntity) {
-        this.employeeEntity = employeeEntity;
-    }
-    */
 
     //link to client
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

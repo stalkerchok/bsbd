@@ -33,45 +33,57 @@ public class PurchanceService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        PurchaseEntity purchase = new PurchaseEntity();
+        try {
 
-        ActEntity act = session.get(ActEntity.class, act_id);
-        act.addPurchaseEntities(purchase);
+            ActEntity act = session.get(ActEntity.class, act_id);
 
-        session.saveOrUpdate(act);
+            ProductEntity product = session.get(ProductEntity.class, product_id);
 
-        purchase.setProductDenomination(product_denomination);
-        purchase.setProductId(product_id);
-        purchase.setUnit(unit);
-        purchase.setOkei(okei);
-        purchase.setOrdered(ordered);
+            PurchaseEntity purchase = new PurchaseEntity();
 
-        ProductEntity product = session.get(ProductEntity.class, product_id);
+            act.addPurchaseEntities(purchase);
 
-        Double value = product.getValue();
-        Double discount = product.getDiscount();
-        Double vat = product.getVat();
+            session.saveOrUpdate(act);
 
-        purchase.setValue(value);
-        purchase.setDiscount(discount);
-        purchase.setVat(vat);
+            purchase.setProductDenomination(product_denomination);
+            purchase.setProductId(product_id);
+            purchase.setUnit(unit);
+            purchase.setOkei(okei);
+            purchase.setOrdered(ordered);
 
-        session.saveOrUpdate(purchase);
 
-        purchase.setSumWithoutVat((value - value * discount/100) * ordered);
+            Double value = product.getValue();
+            Double discount = product.getDiscount();
+            Double vat = product.getVat();
 
-        session.saveOrUpdate(purchase);
+            purchase.setValue(value);
+            purchase.setDiscount(discount);
+            purchase.setVat(vat);
 
-        purchase.setVatSum(purchase.getSumWithoutVat() * vat/100);
-        session.saveOrUpdate(purchase);
-        purchase.setSumWithVat(purchase.getSumWithoutVat() + purchase.getVatSum());
+            session.saveOrUpdate(purchase);
 
-        session.saveOrUpdate(purchase);
+            purchase.setSumWithoutVat((value - value * discount / 100) * ordered);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(purchase);
 
-        return Response.ok().entity(gson.toJson(purchase)).build();
+            purchase.setVatSum(purchase.getSumWithoutVat() * vat / 100);
+            session.saveOrUpdate(purchase);
+            purchase.setSumWithVat(purchase.getSumWithoutVat() + purchase.getVatSum());
+
+            session.saveOrUpdate(purchase);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(purchase)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @PUT
@@ -88,43 +100,54 @@ public class PurchanceService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        PurchaseEntity purchase = session.get(PurchaseEntity.class, purchase_id);
+        try {
 
-        purchase.setProductDenomination(product_denomination);
-        purchase.setProductId(product_id);
-        purchase.setUnit(unit);
-        purchase.setOkei(okei);
-        purchase.setOrdered(ordered);
+            ActEntity act = session.get(ActEntity.class, act_id);
 
-        ProductEntity product = session.get(ProductEntity.class, product_id);
+            ProductEntity product = session.get(ProductEntity.class, product_id);
 
-        Double value = product.getValue();
-        Double discount = product.getDiscount();
-        Double vat = product.getVat();
+            PurchaseEntity purchase = session.get(PurchaseEntity.class, purchase_id);
 
-        purchase.setValue(value);
-        purchase.setDiscount(discount);
-        purchase.setVat(vat);
+            purchase.setProductDenomination(product_denomination);
+            purchase.setProductId(product_id);
+            purchase.setUnit(unit);
+            purchase.setOkei(okei);
+            purchase.setOrdered(ordered);
 
-        session.saveOrUpdate(purchase);
+            Double value = product.getValue();
+            Double discount = product.getDiscount();
+            Double vat = product.getVat();
 
-        purchase.setSumWithoutVat((value - value * discount/100) * ordered);
+            purchase.setValue(value);
+            purchase.setDiscount(discount);
+            purchase.setVat(vat);
 
-        session.saveOrUpdate(purchase);
+            session.saveOrUpdate(purchase);
 
-        purchase.setVatSum(purchase.getSumWithoutVat() * vat/100);
-        session.saveOrUpdate(purchase);
-        purchase.setSumWithVat(purchase.getSumWithoutVat() + purchase.getVatSum());
+            purchase.setSumWithoutVat((value - value * discount / 100) * ordered);
 
-        ActEntity act = session.get(ActEntity.class, act_id);
-        act.addPurchaseEntities(purchase);
+            session.saveOrUpdate(purchase);
 
-        session.saveOrUpdate(act);
+            purchase.setVatSum(purchase.getSumWithoutVat() * vat / 100);
+            session.saveOrUpdate(purchase);
+            purchase.setSumWithVat(purchase.getSumWithoutVat() + purchase.getVatSum());
 
-        session.getTransaction().commit();
-        session.close();
+            act.addPurchaseEntities(purchase);
 
-        return Response.ok().entity(gson.toJson(purchase)).build();
+            session.saveOrUpdate(act);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(purchase)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
 
@@ -136,12 +159,22 @@ public class PurchanceService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        PurchaseEntity purchase = session.get(PurchaseEntity.class, purchase_id);
+        try {
 
-        session.getTransaction().commit();
-        session.close();
+            PurchaseEntity purchase = session.get(PurchaseEntity.class, purchase_id);
 
-        return Response.ok().entity(gson.toJson(purchase)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(purchase)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
 
     }
 
@@ -153,13 +186,23 @@ public class PurchanceService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from PurchaseEntity ");
-        List<PurchaseEntity> PurchaseList = query.list();
+        try {
 
-        session.getTransaction().commit();
-        session.close();
+            Query query = session.createQuery("from PurchaseEntity ");
+            List<PurchaseEntity> PurchaseList = query.list();
 
-        return Response.ok().entity(gson.toJson(PurchaseList)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(PurchaseList)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
 
     }
 
@@ -171,14 +214,24 @@ public class PurchanceService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        PurchaseEntity purchase = session.get(PurchaseEntity.class, purchase_id);
+        try {
 
-        session.delete(purchase);
+            PurchaseEntity purchase = session.get(PurchaseEntity.class, purchase_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.delete(purchase);
 
-        return Response.ok().build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
 
     }
 

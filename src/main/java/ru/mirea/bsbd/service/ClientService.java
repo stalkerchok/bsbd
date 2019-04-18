@@ -36,22 +36,32 @@ public class ClientService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ClientEntity client = new ClientEntity();
+        try {
 
-        client.setName(name);
-        client.setSurname(surname);
-        client.setPatronymic(patronymic);
-        client.setEmail(email);
-        client.setAddress(address);
-        client.setTelephoneNumber(telephone_number);
-        client.setOkpo(okpo);
+            ClientEntity client = new ClientEntity();
 
-        session.saveOrUpdate(client);
+            client.setName(name);
+            client.setSurname(surname);
+            client.setPatronymic(patronymic);
+            client.setEmail(email);
+            client.setAddress(address);
+            client.setTelephoneNumber(telephone_number);
+            client.setOkpo(okpo);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(client);
 
-        return Response.ok().entity(gson.toJson(client)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(client)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
 
     }
 
@@ -71,39 +81,60 @@ public class ClientService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ClientEntity client = session.get(ClientEntity.class, client_id);
+        try {
 
-        client.setName(name);
-        client.setSurname(surname);
-        client.setPatronymic(patronymic);
-        client.setEmail(email);
-        client.setAddress(address);
-        client.setTelephoneNumber(telephone_number);
-        client.setOkpo(okpo);
+            ClientEntity client = session.get(ClientEntity.class, client_id);
 
-        session.saveOrUpdate(client);
+            client.setName(name);
+            client.setSurname(surname);
+            client.setPatronymic(patronymic);
+            client.setEmail(email);
+            client.setAddress(address);
+            client.setTelephoneNumber(telephone_number);
+            client.setOkpo(okpo);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(client);
 
-        return Response.ok().entity(gson.toJson(client)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(client)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("/get_client/{client_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_client(@PathParam("client_id") int client_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ClientEntity client = session.get(ClientEntity.class, client_id);
+        try {
 
-        session.saveOrUpdate(client);
+            ClientEntity client = session.get(ClientEntity.class, client_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(client);
 
-        return Response.ok().entity(gson.toJson(client)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(client)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
@@ -128,17 +159,28 @@ public class ClientService {
     @Path("/delete_client/{client_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response delete_client(@PathParam("client_id") int client_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        ClientEntity client = session.get(ClientEntity.class, client_id);
+        try {
 
-        session.delete(client);
+            ClientEntity client = session.get(ClientEntity.class, client_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.delete(client);
 
-        return Response.ok().build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
 }

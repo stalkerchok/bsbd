@@ -26,25 +26,37 @@ public class InventoryBookService {
     public Response create_book(@PathParam("store_id") int store_id,
                                 @PathParam("organization_denomination") String organization_denomination,
                                 @PathParam("employee_id") int employee_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        InventoryBookEntity book = new InventoryBookEntity();
+        try {
 
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
-        employee.addInventoryBookEntities(book);
+            EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
 
-        session.saveOrUpdate(employee);
+            InventoryBookEntity book = new InventoryBookEntity();
 
-        book.setStoreId(store_id);
-        book.setOrganizationDenomination(organization_denomination);
+            employee.addInventoryBookEntities(book);
 
-        session.saveOrUpdate(book);
+            session.saveOrUpdate(employee);
 
-        session.getTransaction().commit();
-        session.close();
+            book.setStoreId(store_id);
+            book.setOrganizationDenomination(organization_denomination);
 
-        return Response.ok().entity(gson.toJson(book)).build();
+            session.saveOrUpdate(book);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(book)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @PUT
@@ -54,58 +66,92 @@ public class InventoryBookService {
                                 @PathParam("store_id") int store_id,
                                 @PathParam("organization_denomination") String organization_denomination,
                                 @PathParam("employee_id") int employee_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
+        try {
 
-        book.setStoreId(store_id);
-        book.setOrganizationDenomination(organization_denomination);
+            EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
 
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
-        employee.addInventoryBookEntities(book);
+            InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
 
-        session.saveOrUpdate(employee);
+            book.setStoreId(store_id);
+            book.setOrganizationDenomination(organization_denomination);
 
-        session.getTransaction().commit();
-        session.close();
+            employee.addInventoryBookEntities(book);
 
-        return Response.ok().entity(gson.toJson(book)).build();
+            session.saveOrUpdate(employee);
+
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(book)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("/get_book/{book_id}")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_book(@PathParam("book_id") int book_id){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
+        try {
 
-        session.saveOrUpdate(book);
+            InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(book);
 
-        return Response.ok().entity(gson.toJson(book)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(book)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
     @Path("/get_all_books")
     @Produces(MediaType.APPLICATION_JSON + ";charset=utf-8")
     public Response get_all_books(){
+
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from InventoryBookEntity ");
-        List<InventoryBookEntity> BookList = query.list();
+        try {
 
-        session.saveOrUpdate(BookList);
+            Query query = session.createQuery("from InventoryBookEntity ");
+            List<InventoryBookEntity> BookList = query.list();
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(BookList);
 
-        return Response.ok().entity(gson.toJson(BookList)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(BookList)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @DELETE
@@ -116,13 +162,23 @@ public class InventoryBookService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
+        try {
 
-        session.delete(book);
+            InventoryBookEntity book = session.get(InventoryBookEntity.class, book_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.delete(book);
 
-        return Response.ok().build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 }

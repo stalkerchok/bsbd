@@ -34,22 +34,32 @@ public class EmployeeService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        EmployeeEntity employee = new EmployeeEntity();
+        try {
 
-        employee.setPosition(position);
-        employee.setName(name);
-        employee.setSurname(surname);
-        employee.setPatronymic(patronymic);
-        employee.setEmail(email);
-        employee.setTelephoneNumber(telephone_number);
-        employee.setOfficeNumber(office_number);
+            EmployeeEntity employee = new EmployeeEntity();
 
-        session.saveOrUpdate(employee);
+            employee.setPosition(position);
+            employee.setName(name);
+            employee.setSurname(surname);
+            employee.setPatronymic(patronymic);
+            employee.setEmail(email);
+            employee.setTelephoneNumber(telephone_number);
+            employee.setOfficeNumber(office_number);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(employee);
 
-        return Response.ok().entity(gson.toJson(employee)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(employee)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @PUT
@@ -68,22 +78,32 @@ public class EmployeeService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
+        try {
 
-        employee.setPosition(position);
-        employee.setName(name);
-        employee.setSurname(surname);
-        employee.setPatronymic(patronymic);
-        employee.setEmail(email);
-        employee.setTelephoneNumber(telephone_number);
-        employee.setOfficeNumber(office_number);
+            EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
 
-        session.saveOrUpdate(employee);
+            employee.setPosition(position);
+            employee.setName(name);
+            employee.setSurname(surname);
+            employee.setPatronymic(patronymic);
+            employee.setEmail(email);
+            employee.setTelephoneNumber(telephone_number);
+            employee.setOfficeNumber(office_number);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(employee);
 
-        return Response.ok().entity(gson.toJson(employee)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(employee)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
@@ -94,14 +114,24 @@ public class EmployeeService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
+        try {
 
-        session.saveOrUpdate(employee);
+            EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(employee);
 
-        return Response.ok().entity(gson.toJson(employee)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(employee)).build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
     @GET
@@ -112,15 +142,25 @@ public class EmployeeService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from EmployeeEntity ");
-        List<EmployeeEntity> EmployeeList = query.list();
+        try {
 
-        session.saveOrUpdate(EmployeeList);
+            Query query = session.createQuery("from EmployeeEntity ");
+            List<EmployeeEntity> EmployeeList = query.list();
 
-        session.getTransaction().commit();
-        session.close();
+            session.saveOrUpdate(EmployeeList);
 
-        return Response.ok().entity(gson.toJson(EmployeeList)).build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().entity(gson.toJson(EmployeeList)).build();
+
+        } catch (Exception e){
+
+                session.getTransaction().commit();
+                session.close();
+                return Response.status(405).build();
+
+            }
     }
 
     @DELETE
@@ -131,14 +171,24 @@ public class EmployeeService {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
-        EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
+        try {
 
-        session.delete(employee);
+            EmployeeEntity employee = session.get(EmployeeEntity.class, employee_id);
 
-        session.getTransaction().commit();
-        session.close();
+            session.delete(employee);
 
-        return Response.ok().build();
+            session.getTransaction().commit();
+            session.close();
+
+            return Response.ok().build();
+
+        } catch (Exception e){
+
+            session.getTransaction().commit();
+            session.close();
+            return Response.status(405).build();
+
+        }
     }
 
 }
